@@ -2,14 +2,12 @@
 
 int main(int argc, char **argv)
 {
-  while (continue)
-  {
-    getInfo(argv[1]);
-    
-    calculateStatistics();
-    calculateProbabilty();
-    printOutput();
-    generateDNA();
-  }
+    DNAAnalyzer *analyzer = new DNAAnalyzer();
 
+    analyzer-> getInfo(argv[1]); //only works off command line params.
+    analyzer-> generateStatistics();
+    analyzer-> generateDNA();
+
+    delete analyzer;
+    //DOESNT REPEAT BUT WE'LL FIX THAT
 }

@@ -9,17 +9,17 @@ class DNAAnalyzer
   public:
           DNAAnalyzer(); //default constructor
 
-          void initializeFileStream(string fileName);
           void getInfo(string fileName);
-          void calculateStatistics();
-          void calculateProbabilty();
-          void printOutput();
+          void generateStatistics();
           void generateDNA();
 
           //i know ints should be private, but i am NOT doing getters and setters for all of these.
 
           //holder for the line of DNA
           string m_DNAString;
+
+          //count for how many strings were read (used for stats)
+          int m_stringCount;
 
           //Count for each nucleotide
           int m_ACount;
@@ -48,6 +48,9 @@ class DNAAnalyzer
           int m_bigramGC;
           int m_bigramGT;
 
+          //Bigram count
+          int m_bigramTot;
+
           //Holders for statistics
           int    m_sum;
           double m_mean;
@@ -55,4 +58,7 @@ class DNAAnalyzer
           double m_stddev;
 
   private:
+
+        void valueCounter(char dna);
+        void valueCounter(char dna1, char dna2)
 };
