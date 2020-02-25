@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ class DNAAnalyzer
   public:
           DNAAnalyzer(); //default constructor
 
-          void getInfo(string fileName);
+          int getInfo(string fileName);
           void generateStatistics();
           void generateDNA();
 
@@ -17,42 +18,47 @@ class DNAAnalyzer
 
           //holder for the line of DNA
           string m_DNAString;
+          string m_StringLengthHolder;
 
           //count for how many strings were read (used for stats)
           int m_stringCount;
 
           //Count for each nucleotide
-          int m_ACount;
-          int m_CCount;
-          int m_TCount;
-          int m_GCount;
-          int m_totCount;
+          double m_ACount;
+          double m_CCount;
+          double m_TCount;
+          double m_GCount;
+          double m_totCount;
 
           //Bigrams starting with A
-          int m_bigramAC;
-          int m_bigramAT;
-          int m_bigramAG;
+          double m_bigramAA;
+          double m_bigramAC;
+          double m_bigramAT;
+          double m_bigramAG;
 
           //Bigrams starting with C
-          int m_bigramCA;
-          int m_bigramCT;
-          int m_bigramCG;
+          double m_bigramCC;
+          double m_bigramCA;
+          double m_bigramCT;
+          double m_bigramCG;
 
           //Bigrams starting with T
-          int m_bigramTA;
-          int m_bigramTC;
-          int m_bigramTG;
+          double m_bigramTT;
+          double m_bigramTA;
+          double m_bigramTC;
+          double m_bigramTG;
 
           //Bigrams starting with G
-          int m_bigramGA;
-          int m_bigramGC;
-          int m_bigramGT;
+          double m_bigramGG;
+          double m_bigramGA;
+          double m_bigramGC;
+          double m_bigramGT;
 
           //Bigram count
-          int m_bigramTot;
+          double m_bigramTot;
 
           //Holders for statistics
-          int    m_sum;
+          double m_sum;
           double m_mean;
           double m_variance;
           double m_stddev;
@@ -60,5 +66,6 @@ class DNAAnalyzer
   private:
 
         void valueCounter(char dna);
-        void valueCounter(char dna1, char dna2)
+        void valueCounter(char dna1, char dna2);
+        double calculateVariance();
 };
