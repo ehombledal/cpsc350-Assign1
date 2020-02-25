@@ -67,8 +67,8 @@ void DNAAnalyzer::valueCounter(char dna)
 
 void DNAAnalyzer::valueCounter(char dna1, char dna2)
 {
-  char first = toUpper(dna1);
-  char second = toUpper(dna2);
+  char first = toupper(dna1);
+  char second = toupper(dna2);
 
   if (first == 'A') //ALL BIGRAMS THAT START WITH A
   {
@@ -298,11 +298,31 @@ void DNAAnalyzer::generateStatistics()
   outFS << "GC: " << ((m_bigramAG / m_bigramTot)) << endl;
   outFS << "GG: " << ((m_bigramGG / m_bigramTot)) << endl;
 
-
+  outFS << endl;
   outFS.close();
 }
 
 void DNAAnalyzer::generateDNA()
 {
+  ofstream outFS;
+  outFS.open("Hombledal.txt",ios::app); //append mode
+
+  outFS << "RANDOM DNA STRINGS" << endl;
+  outFS << endl;
+
+  for (int i = 0; i < 10, ++i)
+  {
+    int length = 0;
+    random_device random_device;
+    mt19937 random_engine(random_device());
+    cout << uniform_int_distribution<int> distribution_1_100(1, 100);
+
+    //cout << firstRand << " " << secondRand << endl;
+    //int c = sqrt((-2*log(firstRand)) * (cos(2*M_PI*secondRand)))
+
+  }
+
+  outFS.close();
   //TODO: this.
+  //generate gausian for length of string, then use rand to fill it with probabilities.
 }
