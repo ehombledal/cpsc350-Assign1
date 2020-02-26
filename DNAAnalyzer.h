@@ -70,6 +70,4 @@ class DNAAnalyzer
         void valueCounter(char dna1, char dna2);
         double calculateVariance();
         int generateLength();
-        void openHandlerNoExist();
-        void openHandlerExist();
 };
