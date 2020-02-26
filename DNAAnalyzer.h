@@ -15,7 +15,7 @@ class DNAAnalyzer
           void generateStatistics(int ranBefore);
           void generateDNA();
 
-          //i know ints should be private, but i am NOT doing getters and setters for all of these.
+          //i know variables should be private, but i am NOT doing getters and setters for all of these.
 
           //holder for the line of DNA
           string m_DNAString;
