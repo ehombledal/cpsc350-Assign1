@@ -178,9 +178,6 @@ int DNAAnalyzer::getInfo(string fileName)
      return 1; // 1 indicates error
   }
 
-  //Print read file data to output
-  cout <<"Reading data" << endl;
-
   while (!inFS.eof()) //goes until end of file
    {
      inFS >> DNAString;
@@ -209,7 +206,7 @@ int DNAAnalyzer::getInfo(string fileName)
       }
    }
 
-   cout << "Closing file" << fileName << endl;
+   cout << "Closing file " << fileName << endl;
    inFS.close(); // Done with file, so close it
    return 0;
 }
@@ -235,15 +232,22 @@ double DNAAnalyzer::calculateVariance() //cant use arrays, but strings are okay,
 }
 
 
-void DNAAnalyzer::generateStatistics()
+void DNAAnalyzer::generateStatistics(int ranBefore)
 {
   ofstream outFS;    //output file stream
 
   //generate statistics
-  outFS.open("Hombledal.txt");
-  outFS << "Erik Hombledal, 2325523" << endl;
+  if (ranBefore == 1)
+  {
+    outFS.open("Hombledal.txt",ios::app);
+
+  } else {
+    outFS.open("Hombledal.txt");
+    outFS << "Erik Hombledal, 2325523" << endl;
+  }
+
   outFS << endl;
-  outFS << "STATISTICS" << endl;
+  outFS << "STATISTICS FOR FILE" << endl;
   outFS<< endl;
 
   outFS << "The sum of the lengths of the DNA strings is: " << m_totCount << endl;
@@ -302,6 +306,22 @@ void DNAAnalyzer::generateStatistics()
   outFS.close();
 }
 
+int DNAAnalyzer::generateLength()
+{
+  double length = 0;
+  random_device rd;
+  mt19937 mt(rd());
+  uniform_real_distribution<double> dist(0, 1.0);
+
+  double firstRand = dist(mt);
+  double secondRand = dist(mt);
+
+  double c = sqrt(-2*log(firstRand)) * (cos(2*M_PI*secondRand));
+  length = round((m_stddev * c) + m_mean);
+
+  return length;
+}
+
 void DNAAnalyzer::generateDNA()
 {
   ofstream outFS;
@@ -310,19 +330,39 @@ void DNAAnalyzer::generateDNA()
   outFS << "RANDOM DNA STRINGS" << endl;
   outFS << endl;
 
-  for (int i = 0; i < 10, ++i)
+  double anum = round((m_ACount / m_totCount) * 100);
+  double tnum = round((m_TCount / m_totCount) * 100);
+  double cnum = round((m_CCount / m_totCount) * 100);
+  double gnum = round((m_GCount / m_totCount) * 100);
+
+  for (int i = 0; i < 1000; ++i)
   {
-    int length = 0;
-    random_device random_device;
-    mt19937 random_engine(random_device());
-    cout << uniform_int_distribution<int> distribution_1_100(1, 100);
 
-    //cout << firstRand << " " << secondRand << endl;
-    //int c = sqrt((-2*log(firstRand)) * (cos(2*M_PI*secondRand)))
+    for (int i = 0; i < generateLength(); ++i) //chooses what letters go where.
+    {
+      random_device rd;
+      mt19937 mt(rd());
+      uniform_int_distribution<int> dist(1, 100);
 
+      int randNum = dist(mt);
+
+      //im sorry for this.
+      //works by adding percentages and seeing where the random number lands. Kinda like a wheel.
+      if (randNum > 0 && randNum <= anum)
+      {
+        outFS << "A";
+      } else if (randNum > anum && randNum <= anum + tnum)
+      {
+        outFS << "T";
+      } else if(randNum > anum + tnum && randNum <= anum + tnum + cnum)
+      {
+        outFS << "C";
+      } else {
+        outFS << "G";
+      }
+    }
+    outFS << endl;
   }
 
   outFS.close();
-  //TODO: this.
-  //generate gausian for length of string, then use rand to fill it with probabilities.
 }

@@ -12,7 +12,7 @@ class DNAAnalyzer
           DNAAnalyzer(); //default constructor
 
           int getInfo(string fileName);
-          void generateStatistics();
+          void generateStatistics(int ranBefore);
           void generateDNA();
 
           //i know ints should be private, but i am NOT doing getters and setters for all of these.
@@ -69,4 +69,7 @@ class DNAAnalyzer
         void valueCounter(char dna);
         void valueCounter(char dna1, char dna2);
         double calculateVariance();
+        int generateLength();
+        void openHandlerNoExist();
+        void openHandlerExist();
 };
